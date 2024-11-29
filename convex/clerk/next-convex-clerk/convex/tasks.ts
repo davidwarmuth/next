@@ -1,9 +1,23 @@
 import { mutation, query } from "./_generated/server";
+import { v } from "convex/values";
 
 export const get = query({
   args: {},
   handler: async (ctx) => {
     return await ctx.db.query("tasks").collect();
+  },
+});
+
+export const createTask = mutation({
+  args: { title: v.string(), priority: v.string(), status: v.string() },
+  handler: async (ctx, args) => {
+    const taskId = await ctx.db.insert("tasks", {
+      title: args.title,
+      priority: args.priority,
+      status: args.status,
+    });
+    // do something with `taskId`
+    console.log("Created new Task with ID: ", taskId);
   },
 });
 

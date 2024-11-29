@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="py-6">
+    <div className="py-6" id="task-table">
       <div className="pb-4">
         <DataTableToolbar table={table} />
       </div>

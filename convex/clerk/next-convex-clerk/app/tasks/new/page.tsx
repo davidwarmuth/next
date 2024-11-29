@@ -1,3 +1,4 @@
+import { NewTaskForm } from "@/components/new-task-form";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -16,8 +17,8 @@ export default function NewTaskPage() {
           </Button>
         </div>
       </header>
-      <main className="px-2 py-6 w-full container sm:mx-auto text-center">
-        <h3>New task form ...</h3>
+      <main className="px-2 py-6 w-full container sm:mx-auto">
+        <NewTaskForm />
       </main>
     </>
   );
