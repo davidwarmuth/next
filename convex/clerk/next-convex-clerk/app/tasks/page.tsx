@@ -5,6 +5,9 @@ import { api } from "@/convex/_generated/api";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { RadialChart } from "@/components/radial-chart";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ListPlus } from "lucide-react";
 
 export default function TasksPage() {
   const tasks = useQuery(api.tasks.get);
@@ -20,11 +23,19 @@ export default function TasksPage() {
 
   return (
     <>
-      <header className="p-6 text-center border-b">
-        <h2 className="text-2xl font-bold">Tasks</h2>
+      <header className="border-b">
+        <div className="px-2 py-6 sm:mx-auto container flex gap-2 justify-between">
+          <h2 className="text-2xl font-bold">Tasks</h2>
+          <Button asChild>
+            <Link href="/tasks/new" aria-label="Create new task">
+              <ListPlus className="!size-5" />
+              Add
+            </Link>
+          </Button>
+        </div>
       </header>
-      <main className="w-full container sm:mx-auto px-2 py-6">
-        <div className="container flex flex-col md:flex-row md:justify-around">
+      <main className="px-2 py-6 w-full container sm:mx-auto">
+        <div className="flex flex-col md:flex-row md:justify-around">
           <RadialChart
             value={todoCount}
             reference={taskCount}
