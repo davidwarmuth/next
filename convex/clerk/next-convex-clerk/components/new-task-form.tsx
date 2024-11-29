@@ -19,7 +19,6 @@ import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -39,6 +38,7 @@ import {
 } from "./ui/command";
 import { cn } from "@/lib/utils";
 import { priorities, stati } from "@/data/filter";
+import { useRouter } from "next/navigation";
 
 export function NewTaskForm() {
   const [sending, isSending] = useState(false);
@@ -47,6 +47,8 @@ export function NewTaskForm() {
 
   // Mutation hook for creating a new task
   const createTask = useMutation(api.tasks.createTask);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof taskFormSchema>>({
     resolver: zodResolver(taskFormSchema),
@@ -64,6 +66,9 @@ export function NewTaskForm() {
       // Invoke the mutation
       await createTask(values);
       isSubmitted(true);
+      setTimeout(()=>{
+        router.push("/tasks");
+      }, 3000);
     } catch (e) {
       console.error(e);
       isError(true);
@@ -80,10 +85,9 @@ export function NewTaskForm() {
           className="bg-red-200/40 dark:bg-red-200/80"
         >
           <AlertCircle className="size-5" />
-          <AlertTitle>Nachricht konnte nicht gesendet werden!</AlertTitle>
+          <AlertTitle>Task could not be created!</AlertTitle>
           <AlertDescription>
-            Kontaktiere uns bitte auf einem anderen Weg oder versuche es wann
-            anders nochmal.
+            Please contact our support or try again later.
           </AlertDescription>
         </Alert>
       </div>
@@ -93,9 +97,9 @@ export function NewTaskForm() {
       <div>
         <Alert className="bg-green-100/60 dark:bg-green-950/40 border-green-600 text-green-600">
           <CheckCircle2 className="size-5 stroke-green-600" />
-          <AlertTitle>Nachricht erfolgreich gesendet!</AlertTitle>
+          <AlertTitle>Task created successfully!</AlertTitle>
           <AlertDescription>
-            Vielen Dank für Deine Anfrage. Wir melden uns zeitnah bei Dir.
+            You will be redirected automatically after 3 seconds.
           </AlertDescription>
         </Alert>
       </div>

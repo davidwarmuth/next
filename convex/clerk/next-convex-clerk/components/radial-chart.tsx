@@ -61,9 +61,9 @@ export function RadialChart({
     },
   } satisfies ChartConfig;
 
-  const startAngle = 180;
+  const startAngle = -180;
   const endAngle =
-    startAngle - (chartData[0].value / chartData[0].reference) * 360 || 180;
+    startAngle - (chartData[0].value / chartData[0].reference) * 360 || -180;
 
   return (
     <Card
