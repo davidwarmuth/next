@@ -64,8 +64,8 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
-      <div className="py-4">
+    <div className="py-6">
+      <div className="pb-4">
         <DataTableToolbar table={table} />
       </div>
       <div className="rounded-md border">
@@ -118,7 +118,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="py-4">
+      <div className="pt-4">
         <DataTablePagination table={table} />
       </div>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { DataTableColumnHeader } from "@/components/data-table-column-header";
+import { DataTableRowActions } from "@/components/data-table-row-actions";
 import { TaskPriority } from "@/components/task-priority";
 import { TaskStatus } from "@/components/task-status";
 import { Button } from "@/components/ui/button";
@@ -116,5 +117,9 @@ export const columns: ColumnDef<Task>[] = [
         </div>
       );
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];
