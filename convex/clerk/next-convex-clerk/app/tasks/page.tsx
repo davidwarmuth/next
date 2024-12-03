@@ -23,9 +23,9 @@ export default function TasksPage() {
 
   return (
     <>
-      <header className="border-b">
-        <div className="px-2 py-6 sm:mx-auto container flex gap-2 justify-between">
-          <h2 className="text-2xl font-bold">Tasks</h2>
+      <header className="border-b" onScroll={(e) => e.currentTarget.classList.add("fixed")}>
+        <div className="px-4 py-6 sm:mx-auto container flex gap-2 justify-between">
+          <h2 className="text-2xl font-bold">List of tasks</h2>
           <Button asChild>
             <Link href="/tasks/new" aria-label="Create new task">
               <ListPlus className="!size-5" />
@@ -34,8 +34,8 @@ export default function TasksPage() {
           </Button>
         </div>
       </header>
-      <main className="px-2 py-6 w-full container sm:mx-auto">
-        <div className="flex flex-col md:flex-row md:justify-around">
+      <main className="px-4 py-6 w-full container sm:mx-auto">
+        <div className="flex flex-col sm:flex-row sm:justify-around sm:flex-wrap">
           <RadialChart
             value={todoCount}
             reference={taskCount}

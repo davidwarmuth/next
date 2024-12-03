@@ -13,8 +13,8 @@ export default function NotFound() {
   useEffect(() => {
     // Überprüfe, ob die Seite direkt aufgerufen wurde (kein Referrer)
     if (typeof document !== "undefined") {
-        setShowHome(!document.referrer);
-      }
+      setShowHome(!document.referrer);
+    }
   }, []);
 
   const handleButtonClick = () => {
@@ -26,7 +26,7 @@ export default function NotFound() {
   };
 
   return (
-    <div className="p-4 flex-1 flex flex-col gap-2 items-center justify-center">
+    <div className="px-4 py-20 flex flex-col gap-2 items-center justify-center">
       <Icons.notFound className="size-24 fill-neutral-300" />
       <div className="text-center">
         <h2 className="text-2xl">404 | Not Found</h2>
