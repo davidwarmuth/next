@@ -18,7 +18,7 @@ export default function NewTaskPage() {
   }, []);
 
   const handleButtonClick = () => {
-    console.log("hasReferrer: ", hasReferrer);
+    // console.log("hasReferrer: ", hasReferrer);
     if (!hasReferrer) {
       router.push("/tasks/dashboard");
     } else {
@@ -27,15 +27,16 @@ export default function NewTaskPage() {
   };
   return (
     <div className="min-h-[calc(100svh-64px)]">
-      <section className="border-b">
-        <div className="px-2 py-6 sm:mx-auto container flex gap-2 justify-between">
-          <h2 className="text-2xl font-bold">Create new task</h2>
+      <div className="px-4 py-6 sm:mx-auto container">
+        <div className="pb-2 flex gap-4 items-center justify-between">
+          <h2 className="ml-2 text-2xl font-bold">Create new task</h2>
           <Button variant="outline" onClick={handleButtonClick}>
             <ArrowLeft className="size-5" />
             Back
           </Button>
         </div>
-      </section>
+        <div className="my-1 border-b-8 rounded-md opacity-40"></div>
+      </div>
       <main className="px-2 py-6 w-full container sm:mx-auto">
         <NewTaskForm />
       </main>

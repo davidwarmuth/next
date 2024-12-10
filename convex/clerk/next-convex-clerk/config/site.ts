@@ -6,8 +6,7 @@ export const navigationItems = [
     },
     {
       title: "Tasks",
-      href:"/tasks",
-      description: "Example of a NextJS app with Convex backend and Clerk authentification.",
+      description: "Protected pages wich contain a TanStack Table to list all tasks with search, filter and sort function and an dashboard with charts to visualize the task data.",
       items: [
         {
           title: "Dashboard",
@@ -16,10 +15,6 @@ export const navigationItems = [
         {
           title: "List",
           href: "/tasks/list",
-        },
-        {
-          title: "New",
-          href: "/tasks/new",
         },
       ],
     },
@@ -30,10 +25,6 @@ export const navigationItems = [
         {
           title: "Website",
           href: "https://www.davidwarmuth.de",
-        },
-        {
-          title: "Contact us",
-          href: "https://www.davidwarmuth.de/kontakt",
         },
       ],
     },

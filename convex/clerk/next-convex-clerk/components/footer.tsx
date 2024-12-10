@@ -2,6 +2,14 @@ import { navigationItems } from "@/config/site";
 import Link from "next/link";
 
 export const Footer = () => {
+  if (navigationItems[2].items?.length) {
+    if (navigationItems[2].items.length < 2) {
+      navigationItems[2].items?.push({
+        title: "Contact us",
+        href: "https://www.davidwarmuth.de/kontakt",
+      });
+    }
+  }
   return (
     <div className="w-full py-20 border-t">
       <div className="px-4 container mx-auto">
@@ -12,7 +20,8 @@ export const Footer = () => {
                 <Link href="/">DW-NCC</Link>
               </h2>
               <p className="text-lg max-w-lg leading-relaxed tracking-tight text-foreground/75 text-left">
-                Example of a NextJS app with Convex backend and Clerk authentification. {"(Next-Convex-Clerk)"}
+                Example of a NextJS app with Convex backend and Clerk
+                authentification. {"(Next-Convex-Clerk)"}
               </p>
             </div>
             <div className="flex gap-20 flex-row">
@@ -22,8 +31,12 @@ export const Footer = () => {
                 <p>Germany</p>
               </div>
               <div className="flex flex-col text-sm max-w-lg leading-relaxed tracking-tight text-foreground/75 text-left">
-                <Link href="https://www.davidwarmuth.de/agb">Terms of service</Link>
-                <Link href="https://www.davidwarmuth.de/datenschutz">Privacy Policy</Link>
+                <Link href="https://www.davidwarmuth.de/agb">
+                  Terms of service
+                </Link>
+                <Link href="https://www.davidwarmuth.de/datenschutz">
+                  Privacy Policy
+                </Link>
               </div>
             </div>
           </div>

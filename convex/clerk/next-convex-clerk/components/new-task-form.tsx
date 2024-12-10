@@ -66,7 +66,7 @@ export function NewTaskForm() {
       // Invoke the mutation
       await createTask(values);
       isSubmitted(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         router.push("/tasks");
       }, 3000);
     } catch (e) {
@@ -123,7 +123,7 @@ export function NewTaskForm() {
               <FormItem>
                 <FormLabel className="text-base">Title</FormLabel>
                 <FormControl>
-                  <Input {...field} className="text-sm" />
+                  <Input {...field} className="text-sm" name="title" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -159,6 +159,7 @@ export function NewTaskForm() {
                     <PopoverContent className="mx-2 p-0 w-[calc(100vw-16px)] sm:w-fit">
                       <Command>
                         <CommandInput
+                          name="priority"
                           placeholder="Search priority..."
                           className="h-9"
                         />
@@ -222,6 +223,7 @@ export function NewTaskForm() {
                     <PopoverContent className="mx-2 p-0 w-[calc(100vw-16px)] sm:w-fit">
                       <Command>
                         <CommandInput
+                          name="status"
                           placeholder="Search status..."
                           className="h-9"
                         />
