@@ -63,7 +63,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => (
-      <div className="px-2 py-1 rounded-md bg-neutral-100 font-semibold text-neutral-600">
+      <div className="px-2 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 font-semibold text-foreground">
         {row.getValue("title")}
       </div>
     ),

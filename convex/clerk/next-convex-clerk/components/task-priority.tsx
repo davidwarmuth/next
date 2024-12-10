@@ -33,9 +33,11 @@ export function TaskPriority({ priority }: { priority: string }) {
     <div
       className={clsx(
         "px-2 py-1 w-fit flex items-center gap-2 rounded-lg capitalize",
-        priority === "low" && "text-neutral-400 border-neutral-300",
-        priority === "medium" && "text-neutral-600 border-neutral-400",
-        priority === "high" && "text-neutral-950 border-neutral-700"
+        priority === "low" &&
+          "text-neutral-400 dark:text-neutral-400 border-neutral-300",
+        priority === "medium" &&
+          "text-neutral-600 dark:text-neutral-300 border-neutral-400",
+        priority === "high" && "text-foreground border-neutral-700"
       )}
     >
       {/* <PriorityIcon priority={priority} /> */}

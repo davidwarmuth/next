@@ -26,7 +26,7 @@ export default function NewTaskPage() {
     }
   };
   return (
-    <div className="min-h-[calc(100svh-64px)]">
+    <div className="min-h-[calc(100svh-64px)] w-screen">
       <div className="px-4 py-6 sm:mx-auto container">
         <div className="pb-2 flex gap-4 items-center justify-between">
           <h2 className="ml-2 text-2xl font-bold">Create new task</h2>
@@ -35,9 +35,9 @@ export default function NewTaskPage() {
             Back
           </Button>
         </div>
-        <div className="my-1 border-b-8 rounded-md opacity-40"></div>
+        <div className="my-1 border-b-8 rounded-md opacity-40 dark:opacity-70"></div>
       </div>
-      <main className="px-2 py-6 w-full container sm:mx-auto">
+      <main className="px-4 py-6 w-full container sm:mx-auto">
         <NewTaskForm />
       </main>
     </div>

@@ -13,12 +13,13 @@ import { Menu, MoveRight, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { navigationItems } from "@/config/site";
+import { ModeToggle } from "./mode-toggle";
 
 export const Header = () => {
   const [isOpen, setOpen] = useState(false);
   return (
-    <header className="w-full z-40 fixed top-0 left-0 bg-background border-b">
-      <div className="px-4 container relative mx-auto min-h-16 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
+    <header className="body[data-scroll-locked]:pr-4 w-screen z-40 fixed top-0 left-0 bg-background border-b">
+      <div className="px-4 container relative sm:mx-auto min-h-16 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
         <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
           <NavigationMenu className="flex justify-start items-start">
             <NavigationMenuList className="flex justify-start gap-4 flex-row">
@@ -84,13 +85,16 @@ export const Header = () => {
             DW-NCC
           </Link>
         </div>
-        <div className="flex justify-end w-full gap-4">
+        <div className="w-full justify-end">
           {/* <Button variant="ghost" className="hidden md:inline">
             Book a demo
         </Button>
         <div className="border-r hidden md:inline"></div> */}
-          <Button variant="outline">Log in</Button>
-          <Button>Sign up</Button>
+          <div className="hidden sm:flex gap-4 justify-end">
+            <ModeToggle />
+            <Button variant="outline">Log in</Button>
+            <Button>Sign up</Button>
+          </div>
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>
@@ -98,6 +102,10 @@ export const Header = () => {
           </Button>
           {isOpen && (
             <div className="px-4 absolute top-16 border-t flex flex-col w-full right-0 bg-background shadow-lg py-4 container gap-8 rounded-md">
+              <div className="-mb-8 flex sm:hidden gap-4 items-center justify-end">
+                <p>Theme:</p>
+                <ModeToggle />
+              </div>
               {navigationItems.map((item) => (
                 <div key={item.title}>
                   <div className="flex flex-col gap-2">
@@ -130,6 +138,12 @@ export const Header = () => {
                   </div>
                 </div>
               ))}
+              <div className="flex sm:hidden gap-4">
+                <Button variant="outline" className="flex-1">
+                  Log in
+                </Button>
+                <Button className="flex-1">Sign up</Button>
+              </div>
             </div>
           )}
         </div>

@@ -14,7 +14,7 @@ export function StatusIcon({ status }: { status: string }) {
     case "backlog":
       return <CircleHelp className={iconStyle + "text-neutral-500"} />;
     case "todo":
-      return <Circle className={iconStyle + "text-neutral-900"} />;
+      return <Circle className={iconStyle + "text-foreground"} />;
     case "in progress":
       return <Timer className={iconStyle + "text-yellow-500"} />;
     case "done":
@@ -39,7 +39,7 @@ export function TaskStatus({ status }: { status: string }) {
         status === "done" && " border-green-700/80 text-green-700",
         status === "in progress" &&
           " border-yellow-500/60 text-yellow-500" /*border-orange-500/70 text-orange-500*/,
-        status === "todo" && " border-neutral-900/70 text-neutral-900",
+        status === "todo" && " border-neutral-900/70 text-foreground",
         status === "canceled" && " border-red-600/60 text-red-600/80",
         status === "backlog" && " border-neutral-300/90 text-neutral-500"
       )}
