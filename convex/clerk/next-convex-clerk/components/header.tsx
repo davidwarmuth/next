@@ -14,6 +14,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { navigationItems } from "@/config/site";
 import { ModeToggle } from "./mode-toggle";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 export const Header = () => {
   const [isOpen, setOpen] = useState(false);
@@ -85,16 +92,25 @@ export const Header = () => {
             DW-NCC
           </Link>
         </div>
-        <div className="w-full justify-end">
+        <div className="w-full flex gap-4 justify-end">
           {/* <Button variant="ghost" className="hidden md:inline">
             Book a demo
         </Button>
         <div className="border-r hidden md:inline"></div> */}
           <div className="hidden sm:flex gap-4 justify-end">
             <ModeToggle />
-            <Button variant="outline">Log in</Button>
-            <Button>Sign up</Button>
+            <SignedOut>
+              <Button variant="outline" asChild>
+                <SignInButton>Log in</SignInButton>
+              </Button>
+              <Button asChild>
+                <SignUpButton />
+              </Button>
+            </SignedOut>
           </div>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
         <div className="flex w-12 shrink lg:hidden items-end justify-end">
           <Button variant="ghost" onClick={() => setOpen(!isOpen)}>
@@ -139,10 +155,14 @@ export const Header = () => {
                 </div>
               ))}
               <div className="flex sm:hidden gap-4">
-                <Button variant="outline" className="flex-1">
-                  Log in
-                </Button>
-                <Button className="flex-1">Sign up</Button>
+                <SignedOut>
+                  <Button variant="outline" className="flex-1" asChild>
+                    <SignInButton>Log in</SignInButton>
+                  </Button>
+                  <Button className="flex-1" asChild>
+                    <SignUpButton />
+                  </Button>
+                </SignedOut>
               </div>
             </div>
           )}

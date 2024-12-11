@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import { FilePen, LogIn, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 
 export const Hero = () => {
   const [titleNumber, setTitleNumber] = useState(0);
@@ -64,16 +65,21 @@ export const Hero = () => {
             </h1>
 
             <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center">
-                An example of a NextJS app with Convex backend and Clerk authentification. {"(Next-Convex-Clerk)"}
+              An example of a NextJS app with Convex backend and Clerk
+              authentification. {"(Next-Convex-Clerk)"}
             </p>
           </div>
           <div className="flex flex-row gap-3">
-            <Button size="lg" className="gap-4" variant="outline">
-              Log in <LogIn className="w-4 h-4" />
-            </Button>
-            <Button size="lg" className="gap-4">
-              Sign up here <FilePen className="w-4 h-4" />
-            </Button>
+            <SignInButton>
+              <Button size="lg" className="gap-4" variant="outline">
+                Log in <LogIn className="w-4 h-4" />
+              </Button>
+            </SignInButton>
+            <SignUpButton>
+              <Button size="lg" className="gap-4">
+                Sign up here <FilePen className="w-4 h-4" />
+              </Button>
+            </SignUpButton>
           </div>
         </div>
       </div>
