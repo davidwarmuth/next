@@ -7,6 +7,9 @@ import { motion } from "framer-motion";
 import { FilePen, LogIn, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
+/* import { useTheme } from "next-themes"; */
+/* import Image from "next/image";
+import heroBg from "@/public/backgrounds/abstract-shape.png"; */
 
 export const Hero = () => {
   const [titleNumber, setTitleNumber] = useState(0);
@@ -14,6 +17,7 @@ export const Hero = () => {
     () => ["amazing", "new", "wonderful", "beautiful", "smart"],
     []
   );
+  /* const { theme } = useTheme(); */
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -27,7 +31,25 @@ export const Hero = () => {
   }, [titleNumber, titles]);
 
   return (
-    <div className="w-full">
+    <div
+      className="w-full" /* relative */
+      /* style={
+        theme == "dark"
+          ? {
+              background:
+                "radial-gradient(circle, rgba(100,10,10,1) 0%, rgba(50,10,10,1) 30%, rgba(10,10,10,1) 70%)",
+            }
+          : {
+              background:
+                "radial-gradient(circle, rgba(255,165,165,1) 0%, rgba(255,225,225,1) 40%, rgba(255,255,255,1) 70%)",
+            }
+      } */
+    >
+      {/* <Image
+        src={heroBg}
+        alt="An abstract background"
+        className="absolute h-full w-full object-cover opacity-5 dark:invert"
+      /> */}
       <div className="container mx-auto">
         <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
           <div>
@@ -36,8 +58,12 @@ export const Hero = () => {
             </Button>
           </div>
           <div className="flex gap-4 flex-col">
-            <h1 className="text-5xl md:text-7xl max-w-2xl tracking-tighter text-center font-regular">
-              <span className="text-spektr-cyan-50">This is something</span>
+            <h1 className="relative text-5xl md:text-7xl max-w-2xl tracking-tighter text-center font-regular">
+              <span className="relative text-spektr-cyan-50">
+                <span className="gradient absolute -top-full -z-10 w-full aspect-square" />
+                {/* -translate-y-1/2 */}
+                This is something
+              </span>
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
                 {titles.map((title, index) => (

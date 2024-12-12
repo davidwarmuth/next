@@ -87,7 +87,7 @@ export const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="flex lg:justify-center">
+        <div className="lg:ml-4 flex lg:justify-center">
           <Link href="/" className="font-semibold whitespace-nowrap">
             DW-NCC
           </Link>
@@ -117,7 +117,7 @@ export const Header = () => {
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
           {isOpen && (
-            <div className="px-4 absolute top-16 border-t flex flex-col w-full right-0 bg-background shadow-lg py-4 container gap-8 rounded-md">
+            <div className="p-4 absolute top-16 border-t flex flex-col w-full right-0 bg-background shadow-lg container gap-8 rounded-md">
               <div className="-mb-8 flex sm:hidden gap-4 items-center justify-end">
                 <p>Theme:</p>
                 <ModeToggle />
