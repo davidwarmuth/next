@@ -1,7 +1,7 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, SquarePen, Star, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import Link from "next/link";
 
 /* import { Task } from "@/app/tasks/columns"; */
 
@@ -22,6 +35,7 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   /* const task = row.original; */
+  const deleteTask = useMutation(api.tasks.deleteTask);
 
   return (
     <DropdownMenu>
@@ -35,15 +49,58 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <div>Row {row.index}</div>
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
+        <DropdownMenuItem asChild>
+          <Link href={"/tasks/" + row.getValue("actions") + "/edit"}>
+            <SquarePen className="size-5" />
+            Edit
+          </Link>
         </DropdownMenuItem>
+        {/* <DropdownMenuItem>Make a copy</DropdownMenuItem> */}
+        <DropdownMenuItem>
+          <Star className="size-5" />
+          Favorite
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="ghost"
+              className="px-2 py-1.5 w-full justify-start"
+            >
+              <Trash2 className="size-5" />
+              Delete
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you absolutely sure?</DialogTitle>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete this
+                task.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Cancel
+                </Button>
+              </DialogClose>
+              <DropdownMenuItem asChild>
+                <DialogClose asChild>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => deleteTask({ id: row.getValue("actions") })}
+                  >
+                    Delete
+                  </Button>
+                </DialogClose>
+              </DropdownMenuItem>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

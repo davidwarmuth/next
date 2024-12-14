@@ -119,7 +119,13 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "_id",
     id: "actions",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Actions" />
+    ),
+    enableSorting: false,
+    enableHiding: false,
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];

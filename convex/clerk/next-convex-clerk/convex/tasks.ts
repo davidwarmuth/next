@@ -8,6 +8,13 @@ export const get = query({
   },
 });
 
+export const getTask = query({
+  args: { id: v.id("tasks") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});
+
 export const createTask = mutation({
   args: { title: v.string(), priority: v.string(), status: v.string() },
   handler: async (ctx, args) => {
@@ -18,6 +25,33 @@ export const createTask = mutation({
     });
     // do something with `taskId`
     console.log("Created new Task with ID: ", taskId);
+  },
+});
+
+export const updateTask = mutation({
+  args: { id: v.id("tasks"), task: v.object({
+    title: v.string(),
+    priority: v.string(),
+    status: v.string(),
+  }) },
+  handler: async (ctx, args) => {
+    const { id, task } = args;
+    
+    // Vor dem Update den aktuellen Task abrufen und ausgeben
+    console.log("Before update:", await ctx.db.get(id));
+
+    // Task aktualisieren
+    await ctx.db.patch(id, task);
+
+    // Nach dem Update den aktualisierten Task abrufen und ausgeben
+    console.log("After update:", await ctx.db.get(id));
+  },
+});
+
+export const deleteTask = mutation({
+  args: { id: v.id("tasks") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
   },
 });
 
