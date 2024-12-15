@@ -12,8 +12,8 @@ export default function TaskListPage() {
   const tasks = useQuery(api.tasks.get);
   return (
     <main className="px-4 py-6 w-screen container sm:mx-auto min-h-[calc(100svh-64px)]">
-      <div className="pb-2 flex gap-4 items-center justify-between">
-        <h2 className="ml-2 text-2xl font-bold">List of tasks</h2>
+      <div className="pb-4 flex gap-4 items-center justify-between">
+        <h2 className="ml-2 text-3xl">List of tasks</h2>
         <div className="flex gap-2">
           <Button variant="ghost" asChild>
             <Link href="/tasks/dashboard" aria-label="Go to dashboard">
@@ -29,7 +29,7 @@ export default function TaskListPage() {
           </Button>
         </div>
       </div>
-      <div className="my-1 border-b-8 rounded-md opacity-40 dark:opacity-70"></div>
+      <div className="border-b-8 rounded-md opacity-40 dark:opacity-70"></div>
       <DataTable columns={columns} data={tasks || []} />
     </main>
   );
