@@ -56,7 +56,7 @@ export function DataTableRowActions<TData>({
           </Link>
         </DropdownMenuItem>
         {/* <DropdownMenuItem>Make a copy</DropdownMenuItem> */}
-        <DropdownMenuItem>
+        <DropdownMenuItem disabled>
           <Star className="size-5" />
           Favorite
         </DropdownMenuItem>

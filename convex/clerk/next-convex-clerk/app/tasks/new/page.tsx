@@ -28,7 +28,7 @@ export default function NewTaskPage() {
   return (
     <div className="min-h-[calc(100svh-64px)] w-screen">
       <div className="px-4 py-6 sm:mx-auto container">
-        <div className="pb-4 flex gap-4 items-center justify-between">
+        <div className="pb-4 flex gap-2 items-center justify-between flex-wrap">
           <h2 className="ml-2 text-3xl">Create new task</h2>
           <Button variant="outline" onClick={handleButtonClick}>
             <ArrowLeft className="size-5" />

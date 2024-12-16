@@ -12,7 +12,7 @@ export default function TaskListPage() {
   const tasks = useQuery(api.tasks.get);
   return (
     <main className="px-4 py-6 w-screen container sm:mx-auto min-h-[calc(100svh-64px)]">
-      <div className="pb-4 flex gap-4 items-center justify-between">
+      <div className="pb-4 flex gap-2 items-center justify-between flex-wrap">
         <h2 className="ml-2 text-3xl">List of tasks</h2>
         <div className="flex gap-2">
           <Button variant="ghost" asChild>

@@ -1,40 +1,31 @@
 "use client";
 
 import { RadialChart } from "@/components/radial-chart";
-import { Badge } from "@/components/ui/badge";
+import { TaskCarousel } from "@/components/task-carousel";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Card } from "@/components/ui/card";
 import { api } from "@/convex/_generated/api";
-import { useMutation, useQuery } from "convex/react";
-import { Edit, List, ListPlus, Trash2 } from "lucide-react";
+import { useQuery } from "convex/react";
+import { List, ListPlus } from "lucide-react";
 import Link from "next/link";
 
 export default function TasksDashboardPage() {
   const tasks = useQuery(api.tasks.get);
-  const deleteTask = useMutation(api.tasks.deleteTask);
+  const todo = tasks?.filter((task) => task.status === "todo");
+  const progress = tasks?.filter((task) => task.status === "in progress");
+  const done = tasks?.filter((task) => task.status === "done");
 
   const taskCount =
     tasks?.filter(
       (task) => task.status !== "canceled" && task.status !== "backlog"
     ).length || 0;
-  const todoCount = tasks?.filter((task) => task.status === "todo").length || 0;
-  const progressCount =
-    tasks?.filter((task) => task.status === "in progress").length || 0;
-  const doneCount = tasks?.filter((task) => task.status === "done").length || 0;
+  const todoCount = todo?.length || 0;
+  const progressCount = progress?.length || 0;
+  const doneCount = done?.length || 0;
 
   return (
     <main className="px-4 py-6 w-screen container sm:mx-auto min-h-[calc(100svh-64px)]">
-      <div className="pb-4 flex gap-4 items-center justify-between">
+      <div className="pb-4 flex gap-2 items-center justify-between flex-wrap">
         <h2 className="ml-2 text-3xl">Dashboard of tasks</h2>
         <div className="flex gap-2">
           <Button variant="ghost" asChild>
@@ -78,80 +69,9 @@ export default function TasksDashboardPage() {
           />
         </Card>
       </div>
-      <div className="mt-10">
-        <h3 className="p-2 text-xl border-b-2">Todos</h3>
-        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {tasks?.map(
-            (task) =>
-              task.status === "todo" && (
-                <Card key={task._id} className="flex flex-col">
-                  <CardHeader className="pb-3 flex-row items-start justify-between gap-2">
-                    <CardTitle className="text-xl">{task.title}</CardTitle>
-                    <Badge
-                      variant="secondary"
-                      className="!mt-0 h-7 text-muted-foreground"
-                    >
-                      {task.priority}
-                    </Badge>
-                  </CardHeader>
-                  <CardContent className="flex items-center justify-between">
-                    <div className="text-sm text-muted-foreground">
-                      {new Date(task._creationTime).toISOString().split("T")[0]}
-                    </div>
-                    <div className="flex text-muted-foreground">
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="rounded-r-none"
-                        asChild
-                      >
-                        <Link href={"/tasks/" + task._id + "/edit"}>
-                          <Edit />
-                        </Link>
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button
-                            size="icon"
-                            variant="ghost"
-                            className="hover:bg-destructive border-l-2 rounded-l-none"
-                          >
-                            <Trash2 />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
-                            <DialogDescription>
-                              This action cannot be undone. This will
-                              permanently delete this task.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <DialogFooter className="sm:justify-start">
-                            <DialogClose asChild>
-                              <Button type="button" variant="secondary">
-                                Cancel
-                              </Button>
-                            </DialogClose>
-                            <DialogClose asChild>
-                              <Button
-                                type="button"
-                                variant="destructive"
-                                onClick={() => deleteTask({ id: task._id })}
-                              >
-                                Delete
-                              </Button>
-                            </DialogClose>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-          )}
-        </div>
-      </div>
+      <TaskCarousel title="Todos" tasks={todo} />
+      <TaskCarousel title="In Progress" tasks={progress} />
+      <TaskCarousel title="Done" tasks={done} />
       <div className="py-20 flex flex-col sm:flex-row gap-8 justify-around items-center">
         <Button asChild variant="ghost" className="h-fit flex-col">
           <Link href="/tasks/list">

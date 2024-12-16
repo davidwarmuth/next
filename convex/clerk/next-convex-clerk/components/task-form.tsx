@@ -41,11 +41,14 @@ import { priorities, stati } from "@/data/filter";
 import { useRouter } from "next/navigation";
 import { Task } from "@/app/tasks/columns";
 import { Id } from "@/convex/_generated/dataModel";
+import { Progress } from "./ui/progress";
 
 export function TaskForm({ task, id }: { task?: Task; id?: Id<"tasks"> }) {
+  const [hasReferrer, setHasReferrer] = useState(false);
   const [sending, isSending] = useState(false);
   const [submitted, isSubmitted] = useState(false);
   const [error, isError] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   // Mutation hook for creating a new task
   const createTask = useMutation(api.tasks.createTask);
@@ -72,6 +75,10 @@ export function TaskForm({ task, id }: { task?: Task; id?: Id<"tasks"> }) {
 
   // Update form values if the task prop changes
   useEffect(() => {
+    // Überprüfe, ob die Seite direkt aufgerufen wurde (kein Referrer)
+    if (typeof document !== "undefined") {
+      setHasReferrer(!!document.referrer);
+    }
     if (task) {
       form.reset({
         title: task.title,
@@ -92,9 +99,31 @@ export function TaskForm({ task, id }: { task?: Task; id?: Id<"tasks"> }) {
         await createTask(values);
       }
       isSubmitted(true);
-      setTimeout(() => {
-        router.push("/tasks/list");
-      }, 3000);
+
+      let start: number | null = null;
+      const duration = 2000; // 2 seconds
+
+      const step = (timestamp: number) => {
+        if (!start) start = timestamp;
+        const elapsed = timestamp - start;
+        const newValue = Math.min((elapsed / duration) * 100, 100);
+        setProgress(newValue);
+
+        if (elapsed < duration) {
+          requestAnimationFrame(step);
+        } else {
+          // Befehl am Ende der Animation ausführen
+          setTimeout(() => {
+            if (!hasReferrer) {
+              router.push("/tasks/dashboard");
+            } else {
+              router.back();
+            }
+          }, 500); // 500ms Verzögerung
+        }
+      };
+
+      requestAnimationFrame(step);
     } catch (e) {
       console.error(e);
       isError(true);
@@ -131,6 +160,7 @@ export function TaskForm({ task, id }: { task?: Task; id?: Id<"tasks"> }) {
           <AlertDescription>
             You will be redirected automatically after 3 seconds.
           </AlertDescription>
+          <Progress value={progress} className="mt-2 h-1" />
         </Alert>
       </div>
     );
