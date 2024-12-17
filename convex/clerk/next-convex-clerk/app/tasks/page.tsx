@@ -23,8 +23,11 @@ export default function TasksPage() {
 
   return (
     <>
-      <header className="border-b" onScroll={(e) => e.currentTarget.classList.add("fixed")}>
-        <div className="px-4 py-6 sm:mx-auto container flex gap-2 justify-between">
+      <header
+        className="border-b"
+        onScroll={(e) => e.currentTarget.classList.add("fixed")}
+      >
+        <div className="p-6 sm:mx-auto container flex gap-2 justify-between">
           <h2 className="text-2xl font-bold">List of tasks</h2>
           <Button asChild>
             <Link href="/tasks/new" aria-label="Create new task">

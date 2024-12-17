@@ -27,7 +27,7 @@ export default function NewTaskPage() {
   };
   return (
     <div className="min-h-[calc(100svh-64px)] w-screen">
-      <div className="px-4 py-6 sm:mx-auto container">
+      <div className="p-6 sm:mx-auto container">
         <div className="pb-4 flex gap-2 items-center justify-between flex-wrap">
           <h2 className="ml-2 text-3xl">Create new task</h2>
           <Button variant="outline" onClick={handleButtonClick}>
@@ -37,7 +37,7 @@ export default function NewTaskPage() {
         </div>
         <div className="border-b-8 rounded-md opacity-40 dark:opacity-70"></div>
       </div>
-      <main className="px-4 py-6 w-full container sm:mx-auto">
+      <main className="p-6 w-full container sm:mx-auto">
         <TaskForm />
       </main>
     </div>

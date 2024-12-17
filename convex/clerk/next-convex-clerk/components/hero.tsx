@@ -6,18 +6,16 @@ import { motion } from "framer-motion";
 
 import { FilePen, LogIn, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
-/* import { useTheme } from "next-themes"; */
-/* import Image from "next/image";
-import heroBg from "@/public/backgrounds/abstract-shape.png"; */
+import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 export const Hero = () => {
+  const { isLoaded } = useUser();
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
     () => ["amazing", "new", "wonderful", "beautiful", "smart"],
     []
   );
-  /* const { theme } = useTheme(); */
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -31,30 +29,14 @@ export const Hero = () => {
   }, [titleNumber, titles]);
 
   return (
-    <div
-      className="w-full" /* relative */
-      /* style={
-        theme == "dark"
-          ? {
-              background:
-                "radial-gradient(circle, rgba(100,10,10,1) 0%, rgba(50,10,10,1) 30%, rgba(10,10,10,1) 70%)",
-            }
-          : {
-              background:
-                "radial-gradient(circle, rgba(255,165,165,1) 0%, rgba(255,225,225,1) 40%, rgba(255,255,255,1) 70%)",
-            }
-      } */
-    >
-      {/* <Image
-        src={heroBg}
-        alt="An abstract background"
-        className="absolute h-full w-full object-cover opacity-5 dark:invert"
-      /> */}
+    <div className="w-full">
       <div className="container mx-auto">
         <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
           <div>
-            <Button variant="secondary" size="sm" className="gap-4">
-              Read our launch article <MoveRight className="w-4 h-4" />
+            <Button variant="secondary" size="sm" className="gap-4" asChild>
+              <Link href="/#features">
+                See our app features <MoveRight className="w-4 h-4" />
+              </Link>
             </Button>
           </div>
           <div className="flex gap-4 flex-col">
@@ -96,16 +78,29 @@ export const Hero = () => {
             </p>
           </div>
           <div className="flex flex-row gap-3">
-            <SignInButton>
-              <Button size="lg" className="gap-4" variant="outline">
-                Log in <LogIn className="w-4 h-4" />
-              </Button>
-            </SignInButton>
-            <SignUpButton>
-              <Button size="lg" className="gap-4">
-                Sign up here <FilePen className="w-4 h-4" />
-              </Button>
-            </SignUpButton>
+            {isLoaded ? (
+              <>
+                <SignInButton>
+                  <Button size="lg" className="gap-4" variant="outline">
+                    Log in <LogIn className="w-4 h-4" />
+                  </Button>
+                </SignInButton>
+                <SignUpButton>
+                  <Button size="lg" className="gap-4">
+                    Sign up here <FilePen className="w-4 h-4" />
+                  </Button>
+                </SignUpButton>
+              </>
+            ) : (
+              <>
+                <Button size="lg" className="gap-4" variant="outline" disabled>
+                  Log in <LogIn className="w-4 h-4" />
+                </Button>
+                <Button size="lg" className="gap-4" disabled>
+                  Sign up here <FilePen className="w-4 h-4" />
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
