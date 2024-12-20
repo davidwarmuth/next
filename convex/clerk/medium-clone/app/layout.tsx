@@ -8,6 +8,7 @@ import {
   SignInButton,
   UserButton,
 } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,11 +37,13 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <header>
-            <div className="flex gap-2 justify-between">
-              <h1>medium-clone</h1>
+            <div className="p-4 flex gap-2 justify-between">
+              <h1 className="font-semibold">medium-clone</h1>
               <div className="flex gap-2">
                 <SignedOut>
-                  <SignInButton />
+                  <Button asChild>
+                    <SignInButton />
+                  </Button>
                 </SignedOut>
                 <SignedIn>
                   <UserButton />
