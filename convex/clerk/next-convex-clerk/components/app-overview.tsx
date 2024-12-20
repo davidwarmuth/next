@@ -164,7 +164,7 @@ export function OverviewElement(props: {
           ref={rectRef}
         />
       </div>
-      <CardHeader className="h-full gap-1 bg-background rounded-lg transition-colors hover:bg-neutral-950/80 hover:backdrop-blur-3xl">
+      <CardHeader className="h-full gap-1 bg-background rounded-lg transition-colors hover:bg-white/80 dark:hover:bg-neutral-950/80 hover:backdrop-blur-3xl">
         {/* <div className="flex justify-end">
           <Badge variant="secondary">{props.filter}</Badge>
         </div> */}
