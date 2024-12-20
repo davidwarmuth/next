@@ -36,21 +36,21 @@ const appFunctions = [
     filter: "Authentication",
   },
   {
-    title: "TWBlock",
-    description:
-      "Beautifully designed website blocks for your SaaS website. Easily customizable with shadcn-ui themes and works in dark- and light mode.",
-    icon: "/icons/twblocks.ico",
-    invertIcon: true,
-    link: "https://www.twblocks.com/",
-    filter: "UX/UI",
-  },
-  {
     title: "Shadcn/UI",
     description:
       "Beautifully designed components that you can copy and paste into your apps.",
     icon: "/icons/shadcn-ui.svg",
     invertIcon: true,
     link: "https://ui.shadcn.com/",
+    filter: "UX/UI",
+  },
+  {
+    title: "TWBlock",
+    description:
+      "Beautifully designed website blocks for your SaaS website. Easily customizable with shadcn-ui themes and works in dark- and light mode.",
+    icon: "/icons/twblocks.ico",
+    invertIcon: true,
+    link: "https://www.twblocks.com/",
     filter: "UX/UI",
   },
   {
