@@ -9,6 +9,10 @@ export const navigationItems = [
       description: "Protected pages wich contain a TanStack Table to list all tasks with search, filter and sort function and an dashboard with charts to visualize the task data.",
       items: [
         {
+          title: "Tasks",
+          href: "/tasks",
+        },
+        {
           title: "Dashboard",
           href: "/tasks/dashboard",
         },

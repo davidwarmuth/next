@@ -2,69 +2,42 @@
 
 import Image from "next/image";
 import { Card, CardHeader } from "./ui/card";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, LinkIcon } from "lucide-react";
 import { Badge } from "./ui/badge";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
-const appFunctions = [
+const tasksFeatures = [
   {
-    title: "NextJS",
+    title: "TanStack Table",
     description:
-      "To create high-quality web applications with the power of React components.",
-    icon: "/icons/next-js.svg",
-    invertIcon: true,
-    link: "https://nextjs.org/",
-    filter: "Framework",
+      "Supercharge your tables or build a datagrid from scratch for TS/JS, React, Vue, Solid, Svelte & Lit while retaining 100% control over markup and styles.",
+    icon: "/icons/tanstack-logo.png",
+    invertIcon: false,
+    link: "https://tanstack.com/table/latest",
+    filter: "Headless UI library",
   },
   {
-    title: "Convex",
-    description:
-      "Convex is the sync platform that replaces your backend and client state management.",
-    icon: "/icons/convex.png",
+    title: "Recharts",
+    description: "A composable charting library built on React components.",
+    icon: "/icons/react-icon.png",
     invertIcon: false,
-    link: "https://www.convex.dev/",
-    filter: "Backend",
-  },
-  {
-    title: "Clerk",
-    description:
-      "Is a complete suite of embeddable UIs, flexible APIs, and admin dashboards to authenticate and manage your users.",
-    icon: "/icons/clerk-logo.png",
-    invertIcon: false,
-    link: "https://clerk.com/",
-    filter: "Authentication",
+    link: "https://recharts.org/en-US/",
+    filter: "React library",
   },
   {
     title: "Shadcn/UI",
     description:
-      "Beautifully designed components that you can copy and paste into your apps.",
+      "Beautifully designed components that you can copy and paste into your apps. For example the Data Table component with the TanStack Table as the basis.",
     icon: "/icons/shadcn-ui.svg",
     invertIcon: true,
     link: "https://ui.shadcn.com/",
     filter: "UX/UI",
   },
-  {
-    title: "TWBlock",
-    description:
-      "Beautifully designed website blocks for your SaaS website. Easily customizable with shadcn-ui themes and works in dark- and light mode.",
-    icon: "/icons/twblocks.ico",
-    invertIcon: true,
-    link: "https://www.twblocks.com/",
-    filter: "UX/UI",
-  },
-  {
-    title: "TailwindCSS",
-    description:
-      "A utility-first CSS framework packed with classes that can be composed to build any design, directly in your markup.",
-    icon: "/icons/tailwindcss.svg",
-    invertIcon: false,
-    link: "https://tailwindcss.com/",
-    filter: "Styling",
-  },
 ];
 
-export function AppOverview() {
+export function TasksFeatures() {
   const [mousePosition, setMousePosition] = useState<{
     x: number;
     y: number;
@@ -90,16 +63,23 @@ export function AppOverview() {
       <div className="mx-auto container flex flex-col gap-4">
         <div className="flex gap-2 flex-col">
           <h2 className="text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular">
-            App Features
+            Tasks Features
           </h2>
           <p className="text-lg max-w-xl lg:max-w-xl leading-relaxed tracking-tight text-muted-foreground">
-            The <strong>Tech-Stack</strong> I have used to create this{" "}
-            <span className="italic">Next-Convex-Clerk</span> Web-App.
+            The <strong>Tools</strong> I have used to create this tasks pages,
+            in addition to the{" "}
+            <Link
+              href="/#features"
+              className="w-fit inline-flex gap-2 items-center hover:underline underline-offset-4 transition-all duration-1000"
+            >
+              app features <LinkIcon className="size-4" />
+            </Link>
+            .
           </p>
         </div>
         <div className="py-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {appFunctions.map((e, index) => (
-            <OverviewElement key={index} mousePosition={mousePosition} {...e} />
+          {tasksFeatures.map((e, index) => (
+            <FeatureElement key={index} mousePosition={mousePosition} {...e} />
           ))}
         </div>
       </div>
@@ -107,7 +87,7 @@ export function AppOverview() {
   );
 }
 
-export function OverviewElement(props: {
+export function FeatureElement(props: {
   title: string;
   description: string;
   icon: string;
@@ -174,7 +154,7 @@ export function OverviewElement(props: {
             alt={props.title + " Icon"}
             width={24}
             height={24}
-            className={clsx("size-6", {
+            className={clsx("size-6 object-contain", {
               "dark:invert": props.invertIcon,
             })}
           />
