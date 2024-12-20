@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { Card, CardHeader } from "./ui/card";
 import { ExternalLink } from "lucide-react";
 import { Badge } from "./ui/badge";
 import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
 
 const appFunctions = [
   {
@@ -62,8 +65,28 @@ const appFunctions = [
 ];
 
 export function AppOverview() {
+  const [mousePosition, setMousePosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+
+  const handleMouseMove = (ev: React.MouseEvent<HTMLDivElement>) => {
+    const x = ev.clientX;
+    const y = ev.clientY;
+    setMousePosition({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePosition(null);
+  };
+
   return (
-    <div id="features" className="py-20">
+    <div
+      id="features"
+      className="py-20"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="mx-auto container flex flex-col gap-4">
         <div className="flex gap-2 flex-col">
           <h2 className="text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular">
@@ -76,7 +99,7 @@ export function AppOverview() {
         </div>
         <div className="py-10 grid grid-cols-1 sm:grid-cols-2 gap-8">
           {appFunctions.map((e, index) => (
-            <OverviewElement key={index} {...e} />
+            <OverviewElement key={index} mousePosition={mousePosition} {...e} />
           ))}
         </div>
       </div>
@@ -92,10 +115,56 @@ export function OverviewElement(props: {
   link: string;
   filter: string;
   key: string | number;
+  mousePosition: {
+    x: number;
+    y: number;
+  } | null;
 }) {
+  const [glowPosition, setGlowPosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+  const rectRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const rect = rectRef.current?.getBoundingClientRect();
+    /* console.log(
+      "Called Card useEffect. With mousePosition: { x: " +
+        props.mousePosition?.x +
+        ", y: " +
+        props.mousePosition?.y +
+        " } and rect: { x: " +
+        rect?.x +
+        ", y: " +
+        rect?.y +
+        " }"
+    ); */
+    if (!props.mousePosition || !rect) return;
+    const x = props.mousePosition?.x - rect.left - rect.width / 2;
+    const y = props.mousePosition?.y - rect.top - rect.height / 2;
+    setGlowPosition({ x, y });
+  }, [props.mousePosition]);
   return (
-    <Card className="min-w-fit">
-      <CardHeader className="h-full gap-1">
+    <Card className="min-w-fit p-[2px] bg-neutral-500/20 overflow-hidden relative">
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        {glowPosition && (
+          <>
+            <div
+              className="blur-2xl absolute size-64 rounded-full bg-black/60 dark:bg-white/60"
+              style={{
+                left: glowPosition.x + "px",
+                top: glowPosition.y + "px",
+              }}
+            />
+          </>
+        )}
+        <div
+          className="absolute size-64 top-0 left-0 rounded-full"
+          style={{ display: "hidden" }}
+          ref={rectRef}
+        />
+      </div>
+      <CardHeader className="h-full gap-1 bg-background rounded-lg transition-colors hover:bg-neutral-950/80 hover:backdrop-blur-3xl">
         {/* <div className="flex justify-end">
           <Badge variant="secondary">{props.filter}</Badge>
         </div> */}
